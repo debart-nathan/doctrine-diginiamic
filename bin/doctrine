@@ -1,0 +1,9 @@
+<?php
+// bin/doctrine
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+// Chemin vers le fichier qui instancie l'objet EntityManager
+require __DIR__ . '/../index.php';
+ConsoleRunner::run(
+    new SingleManagerProvider($entityManager)
+);
