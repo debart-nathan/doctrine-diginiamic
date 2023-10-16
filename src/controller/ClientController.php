@@ -42,11 +42,15 @@ class ClientController
         return $this->repository->findBy($attributes);
     }
 
-    public function create($name, $mail)
+    public function create($name, $mail, $comptesCourants = [])
     {
         $client = new Client();
         $client->setName($name);
         $client->setMail($mail);
+
+        foreach ($comptesCourants as $compteCourant) {
+            $client->addCompteCourant($compteCourant);
+        }
 
         $this->entityManager->persist($client);
         $this->entityManager->flush();
@@ -54,7 +58,7 @@ class ClientController
         return $client;
     }
 
-    public function update($id, $name = null, $mail = null)
+    public function update($id, $name = null, $mail = null, $comptesCourants = null)
     {
         $client = $this->repository->find($id);
 
@@ -71,6 +75,12 @@ class ClientController
             $client->setMail($mail);
         }
 
+        if ($comptesCourants !== null) {
+            foreach ($comptesCourants as $compteCourant) {
+                $client->addCompteCourant($compteCourant);
+            }
+        }
+
         $this->entityManager->persist($client);
         $this->entityManager->flush();
 
@@ -84,6 +94,12 @@ class ClientController
         if ($client === null) {
             echo "no client found";
             exit(1);
+        }
+        if ($client->getComptesCourant() !== null) {
+            foreach ($client->getComptesCourant() as $compteCourant) {
+                $client->removeCompteCourant($compteCourant);
+                $this->entityManager->remove($compteCourant);
+            }
         }
 
         $this->entityManager->remove($client);

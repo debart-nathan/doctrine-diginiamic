@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'a1690edd7a47da10cd69c7ab33d7a68bbfa8da53',
         'name' => 'nathand/doctrine',
         'dev' => true,
     ),
@@ -110,12 +110,12 @@
             'dev_requirement' => false,
         ),
         'nathand/doctrine' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'a1690edd7a47da10cd69c7ab33d7a68bbfa8da53',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(

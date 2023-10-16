@@ -27,7 +27,7 @@ class init
     {
         //set up configuration
         $this->config = ORMSetup::createAttributeMetadataConfiguration(self::$path, self::$isDev);
-    
+
         // Create EntityManager
         $this->connection = DriverManager::getConnection(self::$dbParams, $this->config);
     }
@@ -36,7 +36,7 @@ class init
     {
         if (self::$entityManager == null) {
             $object = new static;
-            self::$entityManager =self::$entityManager = new EntityManager($object->connection, $object->config);
+            self::$entityManager = self::$entityManager = new EntityManager($object->connection, $object->config);
         }
         return self::$entityManager;
     }

@@ -3,7 +3,9 @@
 
 namespace Nathand\Doctrine\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'Client')]
@@ -20,6 +22,9 @@ class Client
 
     #[ORM\Column(type: 'string')]
     private ?string $mail;
+
+    #[ORM\OneToMany(targetEntity: "CompteCourant", mappedBy: "client")]
+    private ?PersistentCollection $comptesCourants = null;
 
     /**
      * Get the value of id
@@ -77,6 +82,54 @@ class Client
     public function setMail($mail)
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comptesCourant
+     */
+    public function getComptesCourant()
+    {
+        return $this->comptesCourants;
+    }
+
+    /**
+     * Set the value of comptesCourant
+     *
+     * @return  self
+     */
+    public function setComptesCourant($comptesCourants)
+    {
+        $this->comptesCourants = $comptesCourants;
+
+        return $this;
+    }
+
+    public function addCompteCourant(CompteCourant $compteCourant): self
+    {
+        if(!$this->comptesCourants){
+            $this->comptesCourants = new ArrayCollection();
+        }
+        if (!$this->comptesCourants->contains($compteCourant)) {
+            $this->comptesCourants[] = $compteCourant;
+            $compteCourant->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteCourant(CompteCourant $compteCourant): self
+    {
+        if ($this->comptesCourants->removeElement($compteCourant)) {
+            // set the owning side to null (unless already changed)
+            if ($compteCourant->getClient() === $this) {
+                $compteCourant->setClient(null);
+            }
+        }
+        if($this->comptesCourants->isEmpty()){
+            $this->comptesCourants=null;
+        }
 
         return $this;
     }
